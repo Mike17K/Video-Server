@@ -16,8 +16,10 @@ socket.on("video-chunk", (chunk) => {
   // append new data to the array
   const newData = new Uint8Array(chunk); // create a new array with data to append
   let offset = videoData.length; // calculate the offset to append the new data
-  videoData = new Uint8Array(offset + newData.length); // resize the array to fit the new data
-  videoData.set(newData, offset); // copy the new data into the array at the specified offset
+  videoUpdated = new Uint8Array(offset + newData.length); // resize the array to fit the new data
+  videoUpdated.set(videoData, 0); // copy the new data into the array at the specified offset
+  videoUpdated.set(newData, offset); // copy the new data into the array at the specified offset
+  videoData = videoUpdated;
 });
 
 socket.on("ask-more-video",(maxLength)=>{

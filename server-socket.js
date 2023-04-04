@@ -12,11 +12,11 @@ io.on('connection',client => {
 );
 
 //let movieFilePath = "./movies/Walking.With.Dinosaurs.Series.1.1of6.New.Blood.1080p.HDTV.x264.AAC.MVGroup.org.mp4";
-let movieFilePath = "./movies/trip1_original.mp4";
+let movieFilePath = 'C:/Users/User/Videos/Captures/2023-03-10.mp4';
 
 const length = fs.readFileSync(movieFilePath).length;
 
-let videoData = new Uint8Array(); // create an empty array
+//let videoData = new Uint8Array(); // create an empty array
 
 function sendVideoChunk(data){
     console.log(`asking for video chunk ${data['bytesFrom']}-${data['bytesTo']}/${length}`);
@@ -24,12 +24,6 @@ function sendVideoChunk(data){
     //console.log(`Received ${chunk.length} bytes of data. Out of ${headers['Content-Length']}`);
     io.emit('video-chunk',bytes);
     io.emit('ask-more-video',length);
-
-    const newData = new Uint8Array(chunk); // create a new array with data to append
-    let offset = videoData.length; // calculate the offset to append the new data
-    videoData = new Uint8Array(offset + newData.length); // resize the array to fit the new data
-    videoData.set(newData, offset); // copy the new data into the array at the specified offset
-  
     
 }
  
