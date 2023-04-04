@@ -14,6 +14,8 @@
     justify-content: center;
     margin-inline: auto;
     background-color: black;
+
+    max-height: 40vh;
   }
   
   .video-container.theater,
@@ -236,7 +238,7 @@
   .video-container.scrubbing .thumbnail-img {
     display: block;
   }
-  
+
   .video-container.scrubbing .preview-img,
   .timeline-container:hover .preview-img {
     display: block;
@@ -245,6 +247,11 @@
   .video-container.scrubbing .timeline::before,
   .timeline-container:hover .timeline::before {
     display: block;
+  }
+  
+  .timeline::before{
+    display: block;
+    width: calc(var(--loaded) * 100%);
   }
   
   .video-container.scrubbing .thumb-indicator,

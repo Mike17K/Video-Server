@@ -12,7 +12,8 @@ io.on('connection',client => {
 );
 
 //let movieFilePath = "./movies/Walking.With.Dinosaurs.Series.1.1of6.New.Blood.1080p.HDTV.x264.AAC.MVGroup.org.mp4";
-let movieFilePath = 'C:/Users/User/Videos/Captures/2023-03-10.mp4';
+//let movieFilePath = 'C:/Users/User/Videos/Captures/2023-03-10.mp4';
+let movieFilePath = './movies/trip1_original.mp4';
 
 const length = fs.readFileSync(movieFilePath).length;
 

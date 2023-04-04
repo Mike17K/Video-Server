@@ -1,3 +1,4 @@
+const timeline = document.querySelector(".timeline");
 const videoPlayer = document.querySelector("video");
 videoPlayer.style.width = "100%";
 
@@ -20,10 +21,13 @@ socket.on("video-chunk", (chunk) => {
   videoUpdated.set(videoData, 0); // copy the new data into the array at the specified offset
   videoUpdated.set(newData, offset); // copy the new data into the array at the specified offset
   videoData = videoUpdated;
+
 });
 
 socket.on("ask-more-video",(maxLength)=>{
-  if(videoData.length==maxLength){
+  timeline.style.setProperty("--loaded", videoData.length/maxLength);
+
+  if(videoData.length>=maxLength){
     const file = new Blob([videoData], { type: "video/mp4" });
     const url = URL.createObjectURL(file);
     videoPlayer.src = url;
@@ -33,7 +37,7 @@ socket.on("ask-more-video",(maxLength)=>{
     return
   }
 
-  let asklength = 1000000;
+  let asklength = Math.floor(maxLength/10);
   if(maxLength-videoData.length<asklength){
     asklength = maxLength-videoData.length;
   }

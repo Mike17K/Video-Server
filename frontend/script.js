@@ -88,7 +88,7 @@ function handleTimelineUpdate(e) {
   )
   const previewImgSrc = `assets/previewImgs/preview${previewImgNumber}.jpg`
   previewImg.src = previewImgSrc
-  timelineContainer.style.setProperty("--preview-position", percent)
+  timelineContainer.style.setProperty("--preview-position", percent)  
 
   if (isScrubbing) {
     e.preventDefault()
