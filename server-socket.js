@@ -12,8 +12,8 @@ io.on('connection',client => {
 );
 
 //let movieFilePath = "./movies/Walking.With.Dinosaurs.Series.1.1of6.New.Blood.1080p.HDTV.x264.AAC.MVGroup.org.mp4";
-//let movieFilePath = 'C:/Users/User/Videos/Captures/2023-03-10.mp4';
-let movieFilePath = './movies/trip1_original.mp4';
+let movieFilePath = 'C:/Users/User/Videos/Captures/2023-03-10.mp4';
+//let movieFilePath = './movies/trip1_original.mp4';
 
 const length = fs.readFileSync(movieFilePath).length;
 
@@ -23,9 +23,14 @@ function sendVideoChunk(data){
     console.log(`asking for video chunk ${data['bytesFrom']}-${data['bytesTo']}/${length}`);
     const bytes = fs.readFileSync(movieFilePath).slice(data['bytesFrom'],data['bytesTo']);
     //console.log(`Received ${chunk.length} bytes of data. Out of ${headers['Content-Length']}`);
-    io.emit('video-chunk',bytes);
-    io.emit('ask-more-video',length);
+    let res={
+        data:bytes,
+        bytesFrom:data['bytesFrom'],
+        bytesTo:data['bytesTo'],
+        videoTotalLength:length    
+    };
     
+    io.emit('video-chunk',res);    
 }
  
 server.listen(3000,()=> console.log("Running on port 3000..."));

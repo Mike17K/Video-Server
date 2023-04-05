@@ -1,4 +1,4 @@
-const timeline = document.querySelector(".timeline");
+const timeline = document.querySelector(".timeline-loaded");
 const videoPlayer = document.querySelector("video");
 videoPlayer.style.width = "100%";
 
@@ -12,19 +12,25 @@ socket.on("connect", () => {
 
 let videoData = new Uint8Array(); // create an empty array
 
-socket.on("video-chunk", (chunk) => {  
+socket.on("video-chunk", (res) => {  
+  chunk = res.data;
+  let startByte = res.bytesFrom;
+  let endByte = res.bytesTo;
 
-  // append new data to the array
-  const newData = new Uint8Array(chunk); // create a new array with data to append
-  let offset = videoData.length; // calculate the offset to append the new data
-  videoUpdated = new Uint8Array(offset + newData.length); // resize the array to fit the new data
-  videoUpdated.set(videoData, 0); // copy the new data into the array at the specified offset
-  videoUpdated.set(newData, offset); // copy the new data into the array at the specified offset
-  videoData = videoUpdated;
+  if(videoData.length<endByte){
+    // append new data to the array
+    const newData = new Uint8Array(chunk); // create a new array with data to append
+    let offset = videoData.length; // calculate the offset to append the new data
+    videoUpdated = new Uint8Array(endByte); // resize the array to fit the new data
+    videoUpdated.set(videoData, 0); // copy the new data into the array at the specified offset
+    videoUpdated.set(newData, startByte); // copy the new data into the array at the specified offset
+    videoData = videoUpdated;
+  }else{
+    videoData.set(newData, startByte);
+  }
 
-});
 
-socket.on("ask-more-video",(maxLength)=>{
+  maxLength = res.videoTotalLength;
   timeline.style.setProperty("--loaded", videoData.length/maxLength);
 
   if(videoData.length>=maxLength){
