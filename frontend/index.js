@@ -10,8 +10,8 @@ socket.on("connect", () => {
 
 
 
-let videoData = new Uint8Array(); // create an empty array
-let maxLength=1;
+var videoData = new Uint8Array(); // create an empty array
+var maxLength=1;
 
 socket.on("video-chunk", (res) => {  
   chunk = res.data;

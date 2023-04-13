@@ -1,12 +1,11 @@
 import React from "react";
 import { DoubleRangeScrollBar } from "../DoubleRangeScrollBar/DoubleRangeScrollBar";
-
-const SearchBar = () => {
+const SearchBar = (props) => {
   return (
-    <div className="flex justify-center">
-      <form>
-        <div class="flex-col justify-center align-middle">
-          <div class="flex">
+    <div class={`${props.class}`}>
+      <form class="flex w-full">
+        <div class="w-full flex-col justify-center align-middle">
+          <div class="flex w-full">
             <button
               id="dropdown-button"
               data-dropdown-toggle="dropdown"
@@ -28,54 +27,17 @@ const SearchBar = () => {
                 ></path>
               </svg>
             </button>
-            <div
-              id="dropdown"
-              class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
-            >
-              <ul
-                class="py-2 text-sm text-gray-700 dark:text-gray-200"
-                aria-labelledby="dropdown-button"
-              >
-                <li>
-                  <div class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                    Shopping
-                  </div>
-                </li>
-                <li>
-                  <div
-                    href="#"
-                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Images
-                  </div>
-                </li>
-                <li>
-                  <div
-                    href="#"
-                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    News
-                  </div>
-                </li>
-                <li>
-                  <div
-                    href="#"
-                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Finance
-                  </div>
-                </li>
-              </ul>
-            </div>
+            {/* here needs to add the dropdown options for the categories */}
 
-            <div class="relative w-full flex">
+            <div class="relative flex w-full">
               <input
                 type="search"
                 id="search-dropdown"
-                class="block p-2.5 z-20 text-sm text-gray-900 bg-gray-50 border border-gray-300 dark:placeholder-gray-400 dark:text-white focus:outline-none focus:bg-gray-100 hover:bg-gray-200 hover:shadow-inner"
+                class="w-full block p-2.5 z-20 text-sm text-gray-900 bg-gray-50 border border-gray-300 dark:placeholder-gray-400 dark:text-white focus:outline-none focus:bg-gray-100 hover:bg-gray-200 hover:shadow-inner"
                 placeholder="Search"
                 required
               />
+
               <button
                 type="submit"
                 class="p-2.5 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-400"

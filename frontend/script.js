@@ -95,6 +95,10 @@ function handleTimelineUpdate(e) {
     thumbnailImg.src = previewImgSrc
     timelineContainer.style.setProperty("--progress-position", percent)
   }
+
+  if(videoData.length/maxLength-percent>0.1){
+    handleLoadMore();
+  }
 }
 
 // Playback Speed
